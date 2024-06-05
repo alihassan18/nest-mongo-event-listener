@@ -1,0 +1,546 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "initialOwner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_uniswapRouterAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newDefaultDiscount",
+        "type": "uint256"
+      }
+    ],
+    "name": "DefaultDiscountUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newPlatformFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "PlatformFeeUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "depositId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "TokensAddedToDeposit",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "depositId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "discount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "minPurchase",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "maxPurchase",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "vestingCliff",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "vestingPeriod",
+        "type": "uint256"
+      }
+    ],
+    "name": "TokensDeposited",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "depositId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "discountedPrice",
+        "type": "uint256"
+      }
+    ],
+    "name": "TokensPurchased",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "depositId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "TokensWithdrawn",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_depositId",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" }
+    ],
+    "name": "addTokensToDeposit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_depositId",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" }
+    ],
+    "name": "buyTokens",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_depositId",
+        "type": "uint256"
+      }
+    ],
+    "name": "claimVestedTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "defaultDiscount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "depositCount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_tokenAddress",
+        "type": "address"
+      },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "_discount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_minPurchase",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxPurchase",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_vestingCliff",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_vestingPeriod",
+        "type": "uint256"
+      }
+    ],
+    "name": "depositTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "deposits",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" },
+      { "internalType": "address", "name": "owner", "type": "address" },
+      {
+        "internalType": "uint256",
+        "name": "discount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minPurchase",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxPurchase",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "soldAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "vestingCliff",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "vestingPeriod",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "vestingStart",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllDeposits",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "tokenAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "discount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "minPurchase",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxPurchase",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "soldAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "vestingCliff",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "vestingPeriod",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "vestingStart",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct OffLoad.Deposit[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_owner", "type": "address" }
+    ],
+    "name": "getDepositsByOwner",
+    "outputs": [
+      { "internalType": "uint256[]", "name": "", "type": "uint256[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_tokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_ethAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTokenPriceInETH",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint256", "name": "", "type": "uint256" }
+    ],
+    "name": "ownerDeposits",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "platformFee",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_tokenAddress",
+        "type": "address"
+      },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" }
+    ],
+    "name": "rescueERC20",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_defaultDiscount",
+        "type": "uint256"
+      }
+    ],
+    "name": "setDefaultDiscount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_platformFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "setPlatformFee",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "uniswapRouter",
+    "outputs": [
+      {
+        "internalType": "contract IUniswapV2Router02",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "uniswapRouterAddress",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_depositId",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "_amount", "type": "uint256" }
+    ],
+    "name": "withdrawTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  { "stateMutability": "payable", "type": "receive" }
+]
